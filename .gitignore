@@ -2,3 +2,5 @@ venv
 credentials.json
 __pycache__
 .vscode
+pl_bot.log
+last_since_id.json

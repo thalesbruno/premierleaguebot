@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import logging
+import re
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
@@ -28,6 +29,13 @@ teams = {'Liverpool': 'LIV',
          'Norwich City': 'NOR'}
 
 
+def parse_table(table):
+    table_list = table.split('\n')
+    parsed_list = [' '.join(x.split()) for x in table_list]
+    parsed_table = '\n'.join(parsed_list)
+    return parsed_table
+
+
 def get_table():
     """
     get_table() requests a premier league table from the website and
@@ -46,4 +54,8 @@ def get_table():
                              'team': teams_code,
                              'pts': df['Pts']})
 
-    return pl_table.to_string(header=False, index=False)
+    # return pl_table.to_string(header=False, index=False)
+    pl_table_parsed = parse_table(
+        pl_table.to_string(header=False, index=False))
+
+    return pl_table_parsed
